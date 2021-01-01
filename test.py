@@ -9,4 +9,5 @@ def cmd(command):
     else:
         print("失败")
 
-cmd("/root/OneForAll/oneforall.py")
+cmd("pwd")
+cmd("exit 1")
