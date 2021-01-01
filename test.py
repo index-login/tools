@@ -1,17 +1,12 @@
-from prompt_toolkit import prompt
-from prompt_toolkit.history import FileHistory
-from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
-from prompt_toolkit.completion import WordCompleter
+import time
+import subprocess
 
-SQLCompleter = WordCompleter(['select', 'from', 'insert', 'update', 'delete', 'drop'])
+def cmd(command):
+    subp = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding="utf-8")
+    subp.wait(2)
+    if subp.poll() == 0:
+        print(subp.communicate()[1])
+    else:
+        print("失败")
 
-
-while 1:
-    user_input = prompt('SQL>',
-                        history=FileHistory('history.txt'),
-                        auto_suggest=AutoSuggestFromHistory(),
-                        completer=SQLCompleter,
-                        complete_while_typing=True,
-                        complete_in_thread=True,
-                        )
-    print(user_input)
+cmd("/root/OneForAll/oneforall.py")
