@@ -1,5 +1,7 @@
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
+import os
+import subprocess
 
 target=''
 domains=''
@@ -46,6 +48,8 @@ def tu():
     """
     print(hello)
 # def get_imput():
+def oneforall():
+    subprocess.Popen()
 
 if __name__ == '__main__':
     main()
