@@ -3,9 +3,7 @@ from prompt_toolkit.completion import WordCompleter
 import os
 import subprocess
 
-target=''
-domains=''
-urls=''
+
 
 cmdcompleter=WordCompleter(['help','domain','proxy','xray','exit'])
 help_mg="""
@@ -22,13 +20,15 @@ def main():
         choose=prompt('mytool>',
             completer=cmdcompleter,
         )
-        choose==choose.strip()
-        if choose == "domain":
-            pass
-        elif choose =="help":
+        choose==choose.strip().split()
+        if choose[0] == "domain":
+            oneforall(choose[1])
+        elif choose[0] =="help":
             print(help_mg)
-        elif choose == "exit":
+        elif choose[0] == "exit":
             exit()
+        else:
+            print("无效命令")
 
 
 
@@ -44,12 +44,26 @@ def tu():
   /**  /**   /**/**   /** /**
   //** //****** //******  ***
    //   //////   //////  /// 
-
+    
     """
     print(hello)
 # def get_imput():
-def oneforall():
-    subprocess.Popen()
+def oneforall(ym):
+    print(ym)
+    oneforal=["python3", "/root/OneForAll/oneforall.py", "--target",ym,"--fmt","json","run"]
+    all=subprocess.Popen(oneforal,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+    print(all.pid)
+    while True:
+        a=input(">")
+        print(all.returncode)
+        if a=="l":
+            all.kill()
+        # if all.wait()==0:
+        #     print(all.communicate())
+        #     break
+def subfinder(ym):
+
+
 
 if __name__ == '__main__':
     main()
