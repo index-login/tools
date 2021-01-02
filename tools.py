@@ -3,7 +3,8 @@ from prompt_toolkit.completion import WordCompleter
 import os
 import subprocess
 
-
+#git reset --hard
+#git pull
 
 cmdcompleter=WordCompleter(['help','domain','proxy','xray','exit'])
 help_mg="""
@@ -16,7 +17,6 @@ exit    退出
 def main():
     tu()
     while True:
-
         choose=prompt('mytool>',
             completer=cmdcompleter,
         )
@@ -29,9 +29,6 @@ def main():
             exit()
         else:
             print("无效命令")
-
-
-
 
 
 def tu():
@@ -48,17 +45,17 @@ def tu():
     """
     print(hello)
 def oneforall(ym):
-
     oneforal=["python3", "/root/OneForAll/oneforall.py", "--target",ym,"--fmt","json","run"]
     try:
         all=subprocess.Popen(oneforal,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     except BaseException:
         print("oneforall模块出错")
         all.kill()
-        # if all.wait()==0:
+    if all.wait()==0:
+        print("运行完成!")
         #     print(all.communicate())
-        #     break
 def subfinder(ym):
+    sub_cmd=[]
     sub=subprocess.Popen()
 
 
