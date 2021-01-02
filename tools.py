@@ -62,6 +62,8 @@ def oneforall(ym):
         #     print(all.communicate())
         #     break
 def subfinder(ym):
+    pass
+
 
 
 
