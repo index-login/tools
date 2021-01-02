@@ -22,7 +22,7 @@ def main():
         )
         cmd=choose.split()
         if cmd[0] == "domain":
-            oneforall(choose[1])
+            oneforall(cmd[1])
         elif cmd[0] =="help":
             print(help_mg)
         elif cmd[0] == "exit":
