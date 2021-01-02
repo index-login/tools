@@ -20,12 +20,12 @@ def main():
         choose=prompt('mytool>',
             completer=cmdcompleter,
         )
-        cmd=choose.split()
-        if cmd[0] == "domain":
-            oneforall(cmd[1])
-        elif cmd[0] =="help":
+        cmd=choose.split()[0]
+        if cmd == "domain":
+            oneforall(choose.split()[1])
+        elif cmd =="help":
             print(help_mg)
-        elif cmd[0] == "exit":
+        elif cmd == "exit":
             exit()
         else:
             print("无效命令")
