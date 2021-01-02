@@ -20,7 +20,7 @@ def main():
         choose=prompt('mytool>',
             completer=cmdcompleter,
         )
-        choose==choose.strip().split()
+        choose=choose.split()
         if choose[0] == "domain":
             oneforall(choose[1])
         elif choose[0] =="help":
@@ -47,22 +47,19 @@ def tu():
     
     """
     print(hello)
-# def get_imput():
 def oneforall(ym):
-    print(ym)
+
     oneforal=["python3", "/root/OneForAll/oneforall.py", "--target",ym,"--fmt","json","run"]
-    all=subprocess.Popen(oneforal,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-    print(all.pid)
-    while True:
-        a=input(">")
-        print(all.returncode)
-        if a=="l":
-            all.kill()
+    try:
+        all=subprocess.Popen(oneforal,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+    except BaseException:
+        print("oneforall模块出错")
+        all.kill()
         # if all.wait()==0:
         #     print(all.communicate())
         #     break
 def subfinder(ym):
-    pass
+    sub=subprocess.Popen()
 
 
 
