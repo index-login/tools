@@ -2,10 +2,10 @@ from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
 import os
 import subprocess
+from .db import Ato
 
 #git reset --hard
 #git pull
-
 cmdcompleter=WordCompleter(['help','domain','proxy','xray','exit'])
 help_mg="""
 domain  域名收集类
@@ -14,6 +14,8 @@ xray    调用xray
 exit    退出
 123123`
 """
+
+the=os.getcwd()+"/tmp"
 def main():
     tu()
     while True:
@@ -23,6 +25,7 @@ def main():
         cmd=choose.split()[0]
         if cmd == "domain":
             oneforall(choose.split()[1])
+            Ato(domain=choose.)
         elif cmd =="help":
             print(help_mg)
         elif cmd == "exit":
@@ -44,8 +47,9 @@ def tu():
     
     """
     print(hello)
+
 def oneforall(ym):
-    oneforal=["python3", "/root/OneForAll/oneforall.py", "--target",ym,"--fmt","json","run"]
+    oneforal=["python3", "/root/OneForAll/oneforall.py", "--target",ym,"--fmt","json","--path",os.getcwd(),"run"]
     try:
         all=subprocess.Popen(oneforal,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     except BaseException:
