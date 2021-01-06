@@ -25,12 +25,13 @@ def main():
             completer=cmdcompleter,
         )
         cmd=choose.split()[0]
-        arg=choose.split()[1]
+        if len(choose.split())>1 :
+            arg=choose.split()[1]
         if cmd == "domain":
             oneforall(arg)
             subfinder(arg)
             db.Ato(domain=arg)
-        elif cmd =="help":
+        elif cmd == "help":
             print(help_mg)
         elif cmd == "exit":
             exit()
