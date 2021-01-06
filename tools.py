@@ -74,7 +74,10 @@ def oneforall(ym):
     httpx=subprocess.Popen(httpcmd,stdin=ssub.stdout,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     if all.poll()==0:
         print("oneforall模块OK")
-        db.Ato(ym)
+        try:
+            db.Ato(ym)
+        except Exception:
+            print("NO")
 
 # def subfinder(ym):
 
