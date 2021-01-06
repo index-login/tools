@@ -31,7 +31,7 @@ def main():
         if cmd == "domain":
             if len(cmd.split()) > 1:
                 cmd2 = choose2.split()[1]
-            oneforall(choose2.split()[1])
+                oneforall(choose2.split()[1])
             # subfinder(choose2.split()[1])
             # cmd2=choose2.split()[1]
             # db.Ato(domain=cmd2)
@@ -72,7 +72,7 @@ def oneforall(ym):
     ssub=subprocess.Popen(subcmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     httpcmd=["httpx","-json","-o",js,"-ports","80,443,8000,8080,8443"]
     httpx=subprocess.Popen(httpcmd,stdin=ssub.stdout,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-    if (all.poll()==0 && httpx.poll() ==0 && ssub.poll() ==0):
+    if (all.poll()==0 & httpx.poll() ==0 & ssub.poll() ==0):
         db.Ato(ym)
 
 # def subfinder(ym):
