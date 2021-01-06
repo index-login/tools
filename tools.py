@@ -2,7 +2,7 @@ from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
 import os
 import subprocess
-from . import db
+import db
 
 #import huepy
 
