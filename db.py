@@ -58,13 +58,13 @@ class Ato():
         con.commit()
         con.close()
 
-Ato("tuhu.org")
+# Ato("tuhu.org")
 
-con=sqlite3.connect("tuhu.org.sqlite3")
-a=con.execute("select * from domain;")
-b=a.fetchall()
-for t in b:
-    print(t)
+# con=sqlite3.connect("tuhu.org (2).sqlite3")
+# a=con.execute("select * from domain;")
+# b=a.fetchall()
+# for t in b:
+#     print(t)
 # with open("sub_tuhu.org.json",encoding='UTF-8') as  f:
 #     for t in f:
 #         data=ujson.loads(t)
