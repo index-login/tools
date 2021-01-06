@@ -17,13 +17,13 @@ exit    退出
 all     随便什么url
 """
 
-the=os.getcwd()+"/tmp"
+the=os.getcwd()+"/tmp/"
 def main():
     tu()
     while True:
         choose=prompt('mytool>',
             completer=cmdcompleter,
-        )
+        ).strip()
         cmd=choose.split()[0]
         if cmd == "domain":
             oneforall(choose.split()[1])
@@ -54,19 +54,19 @@ def tu():
 def oneforall(ym):
     oneforal=["python3", "/root/OneForAll/oneforall.py", "--target",ym,"--fmt","json","--path",the,"run"]
     try:
-        all=subprocess.Popen(oneforal)
+        all=subprocess.Popen(oneforal,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     except BaseException:
         print("oneforall模块出错")
         all.kill()
-    if all.wait()==0:
-        print("运行完成!")
+    # if all.wait()==0:
+    #     print("运行完成!")
         #     print(all.communicate())
 def subfinder(ym):
     js=the+"sub_"+ym+".json"
     subcmd=["subfinder","-d",ym,"-silent","-all"]
     ssub=subprocess.Popen(subcmd,stdout=subprocess.PIPE)
     httpcmd=["httpx","-json","-o",js,"-ports","80,443,8000,8080,8443"]
-    httpx=subprocess.Popen(httpcmd,stdin=ssub.stdout)
+    httpx=subprocess.Popen(httpcmd,stdin=ssub.stdout,stdout=subprocess.PIPE)
 
 
 
