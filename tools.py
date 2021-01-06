@@ -72,7 +72,7 @@ def oneforall(ym):
     ssub=subprocess.Popen(subcmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     httpcmd=["httpx","-json","-o",js,"-ports","80,443,8000,8080,8443"]
     httpx=subprocess.Popen(httpcmd,stdin=ssub.stdout,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-    if all.wait()==0 & httpx.wait() ==0 & ssub.wait() ==0:
+    if all.poll()==0 & httpx.poll() ==0 & ssub.poll() ==0:
         db.Ato(ym)
 
 # def subfinder(ym):
