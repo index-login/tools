@@ -27,10 +27,11 @@ def main():
         cmd=choose
         cmd=cmd.split()[0]
         if cmd == "domain":
-            if len(cmd.split()) > 1:
-                cmd2 = cmd.split()[1]
-            oneforall(cmd2)
-            subfinder(cmd2)
+            # if len(cmd.split()) > 1:
+            #     cmd2 = cmd.split()[1]
+            oneforall(cmd.split()[1])
+            subfinder(cmd.split()[1])
+            cmd2=cmd.split()[1]
             db.Ato(domain=cmd2)
         elif cmd == "help":
             print(help_mg)
