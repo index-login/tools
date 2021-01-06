@@ -25,6 +25,8 @@ def main():
             completer=cmdcompleter,
         )
         choose2=choose
+        if choose2 == "":
+            continue
         cmd=choose2.split()[0]
         if cmd == "domain":
             if len(cmd.split()) > 1:
