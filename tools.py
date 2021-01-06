@@ -26,12 +26,12 @@ def main():
         )
         cmd=choose
         cmd=cmd.split()[0]
-        if len(cmd.split())>1 :
-            arg=cmd.split()[1]
+        if len(cmd.split()) > 1 :
+            cmd2=cmd.split()[1]
         if cmd == "domain":
-            oneforall(arg)
-            subfinder(arg)
-            db.Ato(domain=arg)
+            oneforall(cmd2)
+            subfinder(cmd2)
+            db.Ato(domain=cmd2)
         elif cmd == "help":
             print(help_mg)
         elif cmd == "exit":
