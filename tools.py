@@ -32,9 +32,9 @@ def main():
             if len(cmd.split()) > 1:
                 cmd2 = choose2.split()[1]
             oneforall(choose2.split()[1])
-            subfinder(choose2.split()[1])
-            cmd2=choose2.split()[1]
-            db.Ato(domain=cmd2)
+            # subfinder(choose2.split()[1])
+            # cmd2=choose2.split()[1]
+            # db.Ato(domain=cmd2)
         elif cmd == "help":
             print(help_mg)
         elif cmd == "exit":
