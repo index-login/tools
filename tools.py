@@ -23,7 +23,7 @@ def main():
     while True:
         choose=prompt('mytool>',
             completer=cmdcompleter,
-        ).strip()
+        )
         cmd=choose.split()[0]
         if cmd == "domain":
             oneforall(choose.split()[1])
