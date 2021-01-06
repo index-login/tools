@@ -3,19 +3,15 @@ import ujson
 import os
 #一个url表 一个域名表 端口表（ip）
 
-#con.execute(query)
-# con=sqlite3.connect("tuhu.org.sqlite3")
-# a=con.execute("select * from domain;")
-# b=a.fetchall()
-# for t in b:
-#     print(t)
+# con.execute(query)
+
 class Ato():
     def __init__(self,domain):
         self.domains=domain
         self.sql=self.__creat_sql()
-        self.jsons ="tmp/"+self.domains+".json"
+        self.jsons =os.getcwd()+"/tmp/"
         self.__oneforall(j=self.jsons)
-
+        self.__subfinder(j=self.jsons)
     def __creat_sql(self):
         name=self.domains+".sqlite3"
         con = sqlite3.connect(name)
@@ -33,7 +29,7 @@ class Ato():
         return name
     def __oneforall(self,j):
         con = sqlite3.connect(self.sql)
-        with open(j) as f:
+        with open(j+self.domains+".json") as f:
             data = ujson.load(f)
             for line in data:
                 title = line['title']
@@ -47,6 +43,29 @@ class Ato():
                     con.execute(sql)
                 except Exception:
                     pass
-                con.commit()
+        con.commit()
         con.close()
-Ato(domain="tuhu.org")
+    def __subfinder(self,j):
+        con = sqlite3.connect(self.sql)
+        with open(j+"sub_"+self.domains+".json",encoding='UTF-8') as  f:
+            for t in f:
+                data=ujson.loads(t)
+                sql = "insert into domain(domains,title,code) values('%s','%s',%d)" % (data['url'], data['title'], data['status-code'])
+                try:
+                    con.execute(sql)
+                except Exception:
+                    pass #重复数据
+        con.commit()
+        con.close()
+
+Ato("tuhu.org")
+
+con=sqlite3.connect("tuhu.org.sqlite3")
+a=con.execute("select * from domain;")
+b=a.fetchall()
+for t in b:
+    print(t)
+# with open("sub_tuhu.org.json",encoding='UTF-8') as  f:
+#     for t in f:
+#         data=ujson.loads(t)
+#         print(data['url'])
