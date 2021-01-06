@@ -67,12 +67,16 @@ def oneforall(ym):
     # if all.wait()==0:
     #     print("运行完成!")
         #     print(all.communicate())
-def subfinder(ym):
     js=the+"sub_"+ym+".json"
     subcmd=["subfinder","-d",ym,"-silent","-all"]
     ssub=subprocess.Popen(subcmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     httpcmd=["httpx","-json","-o",js,"-ports","80,443,8000,8080,8443"]
     httpx=subprocess.Popen(httpcmd,stdin=ssub.stdout,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+    if all.wait()==0 & httpx.wait() ==0 & ssub.wait() ==0:
+        db.Ato(ym)
+
+# def subfinder(ym):
+
 
 
 
