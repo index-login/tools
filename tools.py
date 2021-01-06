@@ -24,9 +24,10 @@ def main():
         choose=prompt('mytool>',
             completer=cmdcompleter,
         )
-        cmd=choose.split()[0]
-        if len(choose.split())>1 :
-            arg=choose.split()[1]
+        cmd=choose
+        cmd=cmd.split()[0]
+        if len(cmd.split())>1 :
+            arg=cmd.split()[1]
         if cmd == "domain":
             oneforall(arg)
             subfinder(arg)
