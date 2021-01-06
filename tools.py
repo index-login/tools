@@ -75,7 +75,7 @@ def oneforall(ym):
     if all.poll()==0:
         print("oneforall模块OK")
         try:
-            db.Ato(ym)
+            db.Ato(domain=ym)
         except Exception:
             print("NO")
 
