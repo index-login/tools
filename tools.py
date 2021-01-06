@@ -29,7 +29,7 @@ def main():
             continue
         cmd=choose2.split()[0]
         if cmd == "domain":
-            if len(cmd.split()) > 1:
+            if len(choose2.split()) > 1:
                 cmd2 = choose2.split()[1]
                 oneforall(choose2.split()[1])
             # subfinder(choose2.split()[1])
