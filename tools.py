@@ -24,14 +24,14 @@ def main():
         choose=prompt('mytool>',
             completer=cmdcompleter,
         )
-        cmd=choose
-        cmd=cmd.split()[0]
+        choose2=choose
+        cmd=choose2.split()[0]
         if cmd == "domain":
-            # if len(cmd.split()) > 1:
-            #     cmd2 = cmd.split()[1]
-            oneforall(cmd.split()[1])
-            subfinder(cmd.split()[1])
-            cmd2=cmd.split()[1]
+            if len(cmd.split()) > 1:
+                cmd2 = choose2.split()[1]
+            oneforall(choose2.split()[1])
+            subfinder(choose2.split()[1])
+            cmd2=choose2.split()[1]
             db.Ato(domain=cmd2)
         elif cmd == "help":
             print(help_mg)
