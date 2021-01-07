@@ -76,6 +76,7 @@ def oneforall(ym):
         if all.poll() == 0:
             print("完成!")
             db.Ato(domain=ym)
+            break
 
 
 # def subfinder(ym):
