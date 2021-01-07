@@ -72,12 +72,11 @@ def oneforall(ym):
     ssub=subprocess.Popen(subcmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     httpcmd=["httpx","-json","-o",js,"-ports","80,443,8000,8080,8443"]
     httpx=subprocess.Popen(httpcmd,stdin=ssub.stdout,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-    if all.poll()==0:
-        print("oneforall模块OK")
-        try:
+    while True:
+        if all.poll() == 0:
+            print("完成!")
             db.Ato(domain=ym)
-        except Exception:
-            print("NO")
+
 
 # def subfinder(ym):
 
