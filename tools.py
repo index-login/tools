@@ -8,13 +8,14 @@ import db
 
 #git reset --hard
 #git pull
-cmdcompleter=WordCompleter(['help','domain','proxy','xray','all','exit'])
+cmdcompleter=WordCompleter(['help','domain','proxy','xray','all','exit','show'])
 help_mg="""
 domain  域名收集类
 proxy   开启代理
 xray    调用xray
 exit    退出
 all     随便什么url
+show    当前数据
 """
 
 the=os.getcwd()+"/tmp/"
@@ -23,6 +24,7 @@ def main():
     while True:
         choose=prompt('mytool>',
             completer=cmdcompleter,
+
         )
         choose2=choose
         if choose2 == "":
@@ -30,8 +32,7 @@ def main():
         cmd=choose2.split()[0]
         if cmd == "domain":
             if len(choose2.split()) > 1:
-                cmd2 = choose2.split()[1]
-                oneforall(choose2.split()[1])
+                con1=oneforall(choose2.split()[1])
             # subfinder(choose2.split()[1])
             # cmd2=choose2.split()[1]
             # db.Ato(domain=cmd2)
@@ -39,6 +40,8 @@ def main():
             print(help_mg)
         elif cmd == "exit":
             exit()
+        elif cmd == "show":
+            con1.show()
         else:
             print("无效命令")
 
@@ -75,11 +78,11 @@ def oneforall(ym):
     while True:
         if all.poll() == 0:
             print("完成!")
-            db.Ato(domain=ym)
+            shu=db.Ato(domain=ym)
             break
+    return shu
 
 
-# def subfinder(ym):
 
 
 

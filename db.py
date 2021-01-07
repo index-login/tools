@@ -1,6 +1,7 @@
 import sqlite3
 import ujson
 import os
+from urllib import parse
 #一个url表 一个域名表 端口表（ip）
 
 # con.execute(query)
@@ -29,7 +30,8 @@ class Ato():
         return name
     def __oneforall(self,j):
         con = sqlite3.connect(self.sql)
-        with open(j+self.domains+".json") as f:
+        with open("tuhu.org.json") as f:
+        #with open(j+self.domains+".json") as f:
             data = ujson.load(f)
             for line in data:
                 title = line['title']
@@ -47,9 +49,14 @@ class Ato():
         con.close()
     def __subfinder(self,j):
         con = sqlite3.connect(self.sql)
-        with open(j+"sub_"+self.domains+".json",encoding='UTF-8') as  f:
+        with open("sub_tuhu.org.json", encoding='UTF-8') as  f:
+        #with open(j+"sub_"+self.domains+".json",encoding='UTF-8') as  f:
             for t in f:
                 data=ujson.loads(t)
+                if parse.urlsplit(data['url']).port == 80:
+                    data['url']=data['url'][:-3]
+                if parse.urlsplit(data['url']).port == 443:
+                    data['url']=data['url'][:-4]
                 sql = "insert into domain(domains,title,code) values('%s','%s',%d)" % (data['url'], data['title'], data['status-code'])
                 try:
                     con.execute(sql)
@@ -57,10 +64,18 @@ class Ato():
                     pass #重复数据
         con.commit()
         con.close()
-
-# Ato("tuhu.org")
-
-# con=sqlite3.connect("tuhu.org (2).sqlite3")
+    def show(self):
+        con=sqlite3.connect(self.sql)
+        sql="select * from domain"
+        out=con.execute(sql).fetchall()
+        for t in out:
+            print(t[1],"\t",t[2],t[3])
+        sql="select count(*) from domain"
+        out=con.execute(sql).fetchall()
+        print("统计:",out[0][0])
+# a=Ato(domain="tuhu.org")
+# a.show()
+# con=sqlite3.connect("tuhu.org.sqlite3")
 # a=con.execute("select * from domain;")
 # b=a.fetchall()
 # for t in b:
