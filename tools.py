@@ -48,16 +48,19 @@ def main():
         elif cmd == "show":
             con1.show()
         elif cmd == "xray":
-            if x_r_a_y == False:
-                xraytu=xray()
-                x_r_a_y = True
-            else:
+            if x_r_a_y == True:
                 print("xray已经打开")
+                continue
             if len(choose2.split()) > 1:
                 con1 = choose2.split()[1]
                 if con1 == "stop":
                     xraytu.kill()
                     xraytu = False
+                elif con1 == "start":
+                    xraytu=xray()
+                    x_r_a_y=True
+                else:
+                    print("xray命令错误")
         else:
             print("无效命令")
 
