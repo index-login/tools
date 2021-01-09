@@ -49,13 +49,14 @@ def main():
         elif cmd == "xray":
             if x_r_a_y == False:
                 xraytu=xray()
-                if len(choose2.split()) > 1:
-                    con1=choose2.split()[1]
-                    if con1== "stop":
-                        xraytu.kill()
-                        xraytu==False
+                x_r_a_y == True
             else:
                 print("xray已经打开")
+            if len(choose2.split()) > 1:
+                con1 = choose2.split()[1]
+                if con1 == "stop":
+                    xraytu.kill()
+                    xraytu == False
         else:
             print("无效命令")
 
