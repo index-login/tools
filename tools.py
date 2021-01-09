@@ -17,12 +17,13 @@ exit    退出
 all     随便什么url
 show    当前数据
 """
-x_r_a_y=False
+
 the=os.getcwd()+"/tmp/"
 def main():
     tu()
+    x_r_a_y = False
     while True:
-        if x_r_a_y ==False:
+        if x_r_a_y == False:
             print("xray状态:关闭")
         else:
             print("xray状态:开启")
