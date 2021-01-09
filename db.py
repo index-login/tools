@@ -30,8 +30,8 @@ class Ato():
         return name
     def __oneforall(self,j):
         con = sqlite3.connect(self.sql)
-        with open("tuhu.org.json") as f:
-        #with open(j+self.domains+".json") as f:
+        #with open("tuhu.org.json") as f:
+        with open(j+self.domains+".json") as f:
             data = ujson.load(f)
             for line in data:
                 title = line['title']
@@ -49,8 +49,8 @@ class Ato():
         con.close()
     def __subfinder(self,j):
         con = sqlite3.connect(self.sql)
-        with open("sub_tuhu.org.json", encoding='UTF-8') as  f:
-        #with open(j+"sub_"+self.domains+".json",encoding='UTF-8') as  f:
+        #with open("sub_tuhu.org.json", encoding='UTF-8') as  f:
+        with open(j+"sub_"+self.domains+".json",encoding='UTF-8') as  f:
             for t in f:
                 data=ujson.loads(t)
                 if parse.urlsplit(data['url']).port == 80:

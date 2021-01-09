@@ -3,7 +3,7 @@ from prompt_toolkit.completion import WordCompleter
 import os
 import subprocess
 import db
-
+from _datetime import datetime
 #import huepy
 
 #git reset --hard
@@ -17,11 +17,15 @@ exit    退出
 all     随便什么url
 show    当前数据
 """
-
+x_r_a_y=False
 the=os.getcwd()+"/tmp/"
 def main():
     tu()
     while True:
+        if x_r_a_y ==False:
+            print("xray状态:关闭")
+        else:
+            print("xray状态:开启")
         choose=prompt('mytool>',
             completer=cmdcompleter,
 
@@ -42,6 +46,16 @@ def main():
             exit()
         elif cmd == "show":
             con1.show()
+        elif cmd == "xray":
+            if x_r_a_y == False:
+                xraytu=xray()
+                if len(choose2.split()) > 1:
+                    con1=choose2.split()[1]
+                    if con1== "stop":
+                        xraytu.kill()
+                        xraytu==False
+            else:
+                print("xray已经打开")
         else:
             print("无效命令")
 
@@ -81,9 +95,15 @@ def oneforall(ym):
             shu=db.Ato(domain=ym)
             break
     return shu
-
-
-
+def xray():
+    html = datetime.now().strftime('%m%d_%H%M')
+    out_html=the+html+".html"
+    xray_cmd=['/root/crawlergo_linux_amd64/xray_linux_amd64','webscan','--listen','127.0.0.1:7777','--html-output',out_html]
+    try:
+        xrayl = subprocess.Popen(xray_cmd,stdout=subprocess.PIPE)
+    except:
+        print("xray报错")
+    return xrayl
 
 
 
