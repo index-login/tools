@@ -8,20 +8,21 @@ from _datetime import datetime
 
 #git reset --hard
 #git pull
-cmdcompleter=WordCompleter(['help','domain','proxy','xray','all','exit','show'])
+cmdcompleter=WordCompleter(['help','domain','proxy','xray','all','exit','show','start','stop'])
 help_mg="""
-domain  域名收集类
-proxy   开启代理
-xray    调用xray
-exit    退出
-all     随便什么url
-show    当前数据
+domain              域名收集类
+proxy               开启代理
+xray start/stop     调用xray
+exit                退出
+all                 随便什么url
+show                当前数据
 """
 
 the=os.getcwd()+"/tmp/"
 def main():
-    tu()
     x_r_a_y = False
+    tu()
+
     while True:
         if x_r_a_y == False:
             print("xray状态:关闭")
@@ -79,6 +80,9 @@ def tu():
     """
     print(hello)
 
+def main_show():
+    pass
+
 def oneforall(ym):
     oneforal=["python3", "/root/OneForAll/oneforall.py", "--target",ym,"--fmt","json","--path",the,"run"]
     try:
@@ -94,8 +98,12 @@ def oneforall(ym):
     ssub=subprocess.Popen(subcmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     httpcmd=["httpx","-json","-o",js,"-ports","80,443,8000,8080,8443"]
     httpx=subprocess.Popen(httpcmd,stdin=ssub.stdout,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+    amassjson=the+"amass_"+ym+".json"
+    amasscmd=['amass','enum','-json',amassjson,'-d',ym]
+    amass=subprocess.Popen(amasscmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     while True:
-        if all.poll() == 0:
+
+        if all.poll() == 0 & amass.poll() == 0:
             print("完成!")
             shu=db.Ato(domain=ym)
             break
@@ -110,9 +118,12 @@ def xray():
         print("xray报错")
     return xrayl
 
-
-
-
+def findjs():
+    pass
+def fuzz():
+    pass
+def arjun():
+    pass
 
 if __name__ == '__main__':
     main()
