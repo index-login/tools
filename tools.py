@@ -103,11 +103,12 @@ def oneforall(ym):
     amass=subprocess.Popen(amasscmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     while True:
 
-        if all.poll() == 0 & amass.poll() == 0:
-            print("完成!")
-            shu=db.Ato(domain=ym)
-            break
-    return shu
+        if all.poll() == 0 :
+            if  amass.poll() == 0:
+                print("完成!")
+                shu=db.Ato(domain=ym)
+                return shu
+                break
 def xray():
     html = datetime.now().strftime('%m%d_%H%M')
     out_html=the+html+".html"
