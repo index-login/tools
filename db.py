@@ -13,7 +13,6 @@ class Ato():
         self.jsons =os.getcwd()+"/tmp/"
         self.__oneforall(j=self.jsons)
         self.__subfinder(j=self.jsons)
-        self.__amass(j=self.jsons)
     def __creat_sql(self):
         name=self.domains+".sqlite3"
         con = sqlite3.connect(name)
@@ -63,6 +62,19 @@ class Ato():
                     con.execute(sql)
                 except Exception:
                     pass #重复数据
+        with open(l + "amass_" + self.domains + ".json", encoding='UTF-8') as ff:
+            for t in ff:
+                data=ujson.loads(t)
+                if parse.urlsplit(data['url']).port == 80:
+                    data['url']=data['url'][:-3]
+                if parse.urlsplit(data['url']).port == 443:
+                    data['url']=data['url'][:-4]
+                sql = "insert into domain(domains,title,code) values('%s','%s',%d)" % (data['url'], data['title'], data['status-code'])
+                try:
+                    con.execute(sql)
+                except Exception:
+                    pass #重复数据
+
         con.commit()
         con.close()
     # def __amass(self,j):
@@ -91,6 +103,8 @@ class Ato():
         sql="select count(*) from domain"
         out=con.execute(sql).fetchall()
         print("统计:",out[0][0])
+        con.commit()
+        con.close()
 # a=Ato(domain="tuhu.org")
 # a.show()
 # con=sqlite3.connect("tuhu.org.sqlite3")

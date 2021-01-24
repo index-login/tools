@@ -52,6 +52,9 @@ def main():
             if len(choose2.split()) > 1:
                 con = choose2.split()[1]
                 if con == "stop":
+                    if x_r_a_y ==False:
+                        print("xray已经关闭")
+                        continue
                     xraytu.kill()
                     xraytu.stdout.close()
                     x_r_a_y = False
@@ -104,8 +107,11 @@ def oneforall(ym):
     amasscmd=['amass','enum','-o',amasstxt,'-d',ym]
     amass=subprocess.Popen(amasscmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     cattxt_cmd=['cat',amasstxt]
+    amassjson=the+"amass_"+ym+".json"
     if amass.wait()==0:
-        cat_txt=subprocess.Popen(cattxt_cmd,stdout=httpx.stdin)
+        cat_txt=subprocess.Popen(cattxt_cmd,stdout=subprocess.PIPE)
+        httpcmd1 = ["httpx", "-json", "-o", amassjson, "-ports", "80,443,8000,8080,8443"]
+        subprocess.Popen(httpcmd1, stdin=cat_txt.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if all.wait() == 0 :
         print("完成!")
         shu=db.Ato(domain=ym)
