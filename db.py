@@ -20,7 +20,7 @@ class Ato():
         (id integer PRIMARY KEY AUTOINCREMENT,
         domains  varchar(30) UNIQUE,
         title varchar(20),
-        code  int(5)
+        code  char(5)
         );"""
         try:
             con.execute(query)
@@ -37,7 +37,7 @@ class Ato():
                 title = str(line['title'])
                 title = title.replace('\'', '')
                 title = title.replace('\\n', '')
-                sql = "insert into domain(domains,title,code) values('%s','%s',%d)" % (line['url'], title, line['status'])
+                sql = "insert into domain(domains,title,code) values('%s','%s','%s')" % (line['url'], title, line['status'])
                 #         print(sql)
                 #         # sql="insert into domain(domains,title,code) values('%s',%s,%d)" %(line['subdomain'],line['title'],line['status'])
                 #         # print(sql)
@@ -57,7 +57,7 @@ class Ato():
                     data['url']=data['url'][:-3]
                 if parse.urlsplit(data['url']).port == 443:
                     data['url']=data['url'][:-4]
-                sql = "insert into domain(domains,title,code) values('%s','%s',%d)" % (data['url'], data['title'], data['status-code'])
+                sql = "insert into domain(domains,title,code) values('%s','%s','%s')" % (data['url'], data['title'], data['status-code'])
                 try:
                     con.execute(sql)
                 except Exception:
@@ -69,7 +69,7 @@ class Ato():
                     data['url']=data['url'][:-3]
                 if parse.urlsplit(data['url']).port == 443:
                     data['url']=data['url'][:-4]
-                sql = "insert into domain(domains,title,code) values('%s','%s',%d)" % (data['url'], data['title'], data['status-code'])
+                sql = "insert into domain(domains,title,code) values('%s','%s','%s')" % (data['url'], data['title'], data['status-code'])
                 try:
                     con.execute(sql)
                 except Exception:
