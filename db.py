@@ -34,7 +34,7 @@ class Ato():
         with open(j+self.domains+".json") as f:
             data = ujson.load(f)
             for line in data:
-                title = line['title']
+                title = str(line['title'])
                 title = title.replace('\'', '')
                 title = title.replace('\\n', '')
                 sql = "insert into domain(domains,title,code) values('%s','%s',%d)" % (line['url'], title, line['status'])
