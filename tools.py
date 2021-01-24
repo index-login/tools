@@ -38,7 +38,7 @@ def main():
         cmd=choose2.split()[0]
         if cmd == "domain":
             if len(choose2.split()) > 1:
-                con1,con2=oneforall(choose2.split()[1])
+                con1=oneforall(choose2.split()[1])
             # subfinder(choose2.split()[1])
             # cmd2=choose2.split()[1]
             # db.Ato(domain=cmd2)
@@ -66,9 +66,8 @@ def main():
         else:
             print("无效命令")
         if con1.poll() == 0:
-            if con2.poll()==0:
-                shu = db.Ato(domain=ym)
-                print("完成！")
+            shu = db.Ato(domain=ym)
+            print("完成！")
 
 
 
@@ -108,7 +107,8 @@ def oneforall(ym):
     amasscmd=['amass','enum','-o',amasstxt,'-d',ym]
     amass=subprocess.Popen(amasscmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     cattxt_cmd=['cat',amasstxt]
-    cat_txt=subprocess.Popen(cattxt_cmd,stdout=httpx.stdin)
+    if amass.wait()==0:
+        cat_txt=subprocess.Popen(cattxt_cmd,stdout=httpx.stdin)
     # while True:
     #
         # if all.poll() == 0 :
@@ -117,7 +117,7 @@ def oneforall(ym):
         #         shu=db.Ato(domain=ym)
         #         return shu
         #         break
-    return all,amass
+    return all
 def xray():
     html = datetime.now().strftime('%m%d_%H%M')
     out_html=the+html+".html"
