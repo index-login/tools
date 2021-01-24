@@ -62,7 +62,7 @@ class Ato():
                     con.execute(sql)
                 except Exception:
                     pass #重复数据
-        with open(l + "amass_" + self.domains + ".json", encoding='UTF-8') as ff:
+        with open(j + "amass_" + self.domains + ".json", encoding='UTF-8') as ff:
             for t in ff:
                 data=ujson.loads(t)
                 if parse.urlsplit(data['url']).port == 80:
