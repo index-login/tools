@@ -38,7 +38,7 @@ def main():
         cmd=choose2.split()[0]
         if cmd == "domain":
             if len(choose2.split()) > 1:
-                con1=oneforall(choose2.split()[1])
+                con1,con2=oneforall(choose2.split()[1])
             # subfinder(choose2.split()[1])
             # cmd2=choose2.split()[1]
             # db.Ato(domain=cmd2)
@@ -47,14 +47,15 @@ def main():
         elif cmd == "exit":
             exit()
         elif cmd == "show":
-            con1.show()
+            shu.show()
         elif cmd == "xray":
             if len(choose2.split()) > 1:
-                con1 = choose2.split()[1]
-                if con1 == "stop":
+                con = choose2.split()[1]
+                if con == "stop":
                     xraytu.kill()
+                    xraytu.stdout.close()
                     x_r_a_y = False
-                elif con1 == "start":
+                elif con == "start":
                     if x_r_a_y == True:
                         print("xray已经打开")
                         continue
@@ -64,6 +65,11 @@ def main():
                     print("xray命令错误")
         else:
             print("无效命令")
+        if con1.poll() == 0:
+            if con2.poll()==0:
+                shu = db.Ato(domain=ym)
+                print("完成！")
+
 
 
 def tu():
@@ -98,17 +104,20 @@ def oneforall(ym):
     ssub=subprocess.Popen(subcmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     httpcmd=["httpx","-json","-o",js,"-ports","80,443,8000,8080,8443"]
     httpx=subprocess.Popen(httpcmd,stdin=ssub.stdout,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-    amassjson=the+"amass_"+ym+".json"
-    amasscmd=['amass','enum','-json',amassjson,'-d',ym]
+    amasstxt=the+"amass_"+ym+".txt"
+    amasscmd=['amass','enum','-o',amasstxt,'-d',ym]
     amass=subprocess.Popen(amasscmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-    while True:
-
-        if all.poll() == 0 :
-            if  amass.poll() == 0:
-                print("完成!")
-                shu=db.Ato(domain=ym)
-                return shu
-                break
+    cattxt_cmd=['cat',amasstxt]
+    cat_txt=subprocess.Popen(cattxt_cmd,stdout=httpx.stdin)
+    # while True:
+    #
+        # if all.poll() == 0 :
+        #     if  amass.poll() == 0:
+        #         print("完成!")
+        #         shu=db.Ato(domain=ym)
+        #         return shu
+        #         break
+    return all,amass
 def xray():
     html = datetime.now().strftime('%m%d_%H%M')
     out_html=the+html+".html"
