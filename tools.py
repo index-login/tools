@@ -47,7 +47,7 @@ def main():
         elif cmd == "exit":
             exit()
         elif cmd == "show":
-            shu.show()
+            con1.show()
         elif cmd == "xray":
             if len(choose2.split()) > 1:
                 con = choose2.split()[1]
@@ -65,9 +65,6 @@ def main():
                     print("xray命令错误")
         else:
             print("无效命令")
-        if con1.poll() == 0:
-            shu = db.Ato(domain=ym)
-            print("完成！")
 
 
 
@@ -109,15 +106,11 @@ def oneforall(ym):
     cattxt_cmd=['cat',amasstxt]
     if amass.wait()==0:
         cat_txt=subprocess.Popen(cattxt_cmd,stdout=httpx.stdin)
-    # while True:
-    #
-        # if all.poll() == 0 :
-        #     if  amass.poll() == 0:
-        #         print("完成!")
-        #         shu=db.Ato(domain=ym)
-        #         return shu
-        #         break
-    return all
+    if all.wait() == 0 :
+        print("完成!")
+        shu=db.Ato(domain=ym)
+        return shu
+
 def xray():
     html = datetime.now().strftime('%m%d_%H%M')
     out_html=the+html+".html"
