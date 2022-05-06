@@ -1,7 +1,10 @@
 import sqlite3
+
+import records
 import ujson
 import os
 from urllib import parse
+
 #一个url表 一个域名表 端口表（ip）
 
 # con.execute(query)
@@ -9,13 +12,14 @@ from urllib import parse
 class Ato():
     def __init__(self,domain):
         self.domains=domain
-        self.sql=self.__creat_sql()
+        # self.__creat_sql()
         self.jsons =os.getcwd()+"/tmp/"
-        self.__oneforall(j=self.jsons)
-        self.__subfinder(j=self.jsons)
+        # self.__oneforall(j=self.jsons)
+        # self.__subfinder(j=self.jsons)
+        self.data="sqlite:///tuhu.org.db"
     def __creat_sql(self):
-        name=self.domains+".sqlite3"
-        con = sqlite3.connect(name)
+        self.data=self.domains+".sqlite3"
+        con = sqlite3.connect(self.data)
         query = """CREATE TABLE domain
         (id integer PRIMARY KEY AUTOINCREMENT,
         domains  varchar(30) UNIQUE,
@@ -27,9 +31,9 @@ class Ato():
         except Exception:
             pass
         con.close()
-        return name
+
     def __oneforall(self,j):
-        con = sqlite3.connect(self.sql)
+        con = sqlite3.connect(self.data)
         #with open("tuhu.org.json") as f:
         with open(j+self.domains+".json") as f:
             data = ujson.load(f)
@@ -48,7 +52,7 @@ class Ato():
         con.commit()
         con.close()
     def __subfinder(self,j):
-        con = sqlite3.connect(self.sql)
+        con = sqlite3.connect(self.data)
         #with open("sub_tuhu.org.json", encoding='UTF-8') as  f:
         with open(j+"sub_"+self.domains+".json",encoding='UTF-8') as  f:
             for t in f:
@@ -95,19 +99,17 @@ class Ato():
 
 
     def show(self):
-        con=sqlite3.connect(self.sql)
-        sql="select * from domain"
-        out=con.execute(sql).fetchall()
-        for t in out:
-            print(t[1],"\t",t[2],t[3])
-        sql="select count(*) from domain"
-        out=con.execute(sql).fetchall()
-        print("统计:",out[0][0])
-        con.commit()
-        con.close()
-# a=Ato(domain="tuhu.org")
-# a.show()
-# con=sqlite3.connect("tuhu.org.sqlite3")
+        db=records.Database(self.data)
+        db=db.get_connection()
+        row=db.query("select * from domain")
+        temp= str(row.dataset)
+        return temp
+
+
+if __name__ == '__main__':
+    a = Ato(domain="tuhu.org")
+    a.show()
+# con=sqlite3.connect("tuhu.org.db")
 # a=con.execute("select * from domain;")
 # b=a.fetchall()
 # for t in b:
